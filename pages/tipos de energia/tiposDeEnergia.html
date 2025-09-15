@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tipos de Energía — Educación | Plataforma Energía</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <a href="../home/home.html" class="logo">⚡ Plataforma Energía</a>
+      </div>
+      <nav class="menu">
+        <a href="../home/home.html">Inicio</a>
+        <a href="tipos.html" class="active">Tipos de Energía</a>
+        <a href="../maps/maps.html">Mapas</a>
+        <a href="../login/login.html">Consulta tu Consumo</a>
+        <button id="logoutBtn" class="logout-small">Cerrar sesión</button>
+      </nav>
+    </header>
+
+    <main class="container">
+      <section class="hero">
+        <div class="hero-inner">
+          <h1>Tipos de Energía</h1>
+          <p class="lead">
+            Aprende las fuentes de energía que mueven el mundo: cómo funcionan,
+            cuáles son renovables o no, y los pros y contras de cada una.
+          </p>
+          <div class="filters">
+            <button class="filter-btn active" data-filter="all">Todos</button>
+            <button class="filter-btn" data-filter="renewable">
+              Renovables
+            </button>
+            <button class="filter-btn" data-filter="nonrenewable">
+              No renovables
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section class="intro">
+        <h2>¿Qué significa renovable y no renovable?</h2>
+        <p>
+          <strong>Renovables:</strong> Se regeneran naturalmente en una escala
+          de tiempo humana (sol, viento, agua). <br />
+          <strong>No renovables:</strong> Se forman en millones de años y se
+          agotan con su uso (petróleo, carbón, gas). <br />
+          Esta página te ofrece una guía clara y visual para entender cada tipo
+          y su papel en la transición energética.
+        </p>
+      </section>
+
+      <section class="grid" id="cardsGrid">
+        <!-- RENOVABLES -->
+        <article class="card renewable">
+          <img
+            src="../../assets/solar.png"
+            alt="Paneles solares"
+            class="card-img"
+          />
+          <div class="card-body">
+            <h3>Solar (Fotovoltaica)</h3>
+            <p class="muted">
+              Transforma la luz solar directamente en electricidad mediante
+              paneles.
+            </p>
+            <details>
+              <summary class="summary">Pros / Contras</summary>
+              <ul>
+                <li>
+                  <strong>Pros:</strong> Fuente inagotable, baja emisión,
+                  escalable (desde hogares hasta plantas).
+                </li>
+                <li>
+                  <strong>Contras:</strong> Intermitente (noche/lluvia),
+                  necesita espacio y baterías para almacenamiento.
+                </li>
+              </ul>
+            </details>
+          </div>
+        </article>
+
+        <article class="card renewable">
+          <img
+            src="../../assets/eolica.png"
+            alt="Aerogeneradores"
+            class="card-img"
+          />
+          <div class="card-body">
+            <h3>Eólica</h3>
+            <p class="muted">
+              Aprovecha la fuerza del viento con turbinas para generar
+              electricidad.
+            </p>
+            <details>
+              <summary class="summary">Pros / Contras</summary>
+              <ul>
+                <li>
+                  <strong>Pros:</strong> Muy baja emisión, coste competitivo por
+                  kWh en zonas ventosas.
+                </li>
+                <li>
+                  <strong>Contras:</strong> Intermitencia, impacto
+                  visual/acústico y requerimientos de localización.
+                </li>
+              </ul>
+            </details>
+          </div>
+        </article>
+
+        <article class="card renewable">
+          <img
+            src="../../assets/hydro.png"
+            alt="Central hidroeléctrica"
+            class="card-img"
+          />
+          <div class="card-body">
+            <h3>Hidroeléctrica</h3>
+            <p class="muted">
+              Generación a partir de la energía del agua en movimiento.
+            </p>
+            <details>
+              <summary class="summary">Pros / Contras</summary>
+              <ul>
+                <li>
+                  <strong>Pros:</strong> Fuente estable y con capacidad de
+                  almacenamiento (embalses), larga vida útil.
+                </li>
+                <li>
+                  <strong>Contras:</strong> Gran impacto ambiental/local,
+                  desplazamiento de comunidades y cambios en ecosistemas.
+                </li>
+              </ul>
+            </details>
+          </div>
+        </article>
+
+        <article class="card renewable">
+          <img
+            src="../../assets/geo.png"
+            alt="Planta geotérmica"
+            class="card-img"
+          />
+          <div class="card-body">
+            <h3>Geotérmica</h3>
+            <p class="muted">
+              Aprovecha el calor interno de la Tierra para generar energía o
+              calefacción.
+            </p>
+            <details>
+              <summary class="summary">Pros / Contras</summary>
+              <ul>
+                <li>
+                  <strong>Pros:</strong> Fuente constante, baja huella de
+                  carbono y útil para calefacción directa.
+                </li>
+                <li>
+                  <strong>Contras:</strong> Limitada geográficamente; puede
+                  generar emisiones de gases desde subsuelo.
+                </li>
+              </ul>
+            </details>
+          </div>
+        </article>
+
+        <article class="card renewable">
+          <img src="../../assets/biomasa.png" alt="Biomasa" class="card-img" />
+          <div class="card-body">
+            <h3>Biomasa</h3>
+            <p class="muted">
+              Energía producida a partir de materia orgánica (residuos
+              agrícolas, madera, biogás).
+            </p>
+            <details>
+              <summary class="summary">Pros / Contras</summary>
+              <ul>
+                <li>
+                  <strong>Pros:</strong> Revaloriza residuos, puede proporcionar
+                  energía estable y local.
+                </li>
+                <li>
+                  <strong>Contras:</strong> Emisiones si no se gestiona bien,
+                  competencia con uso de suelo/producción de alimentos.
+                </li>
+              </ul>
+            </details>
+          </div>
+        </article>
+
+        <article class="card renewable">
+          <img src="../../assets/marea.png" alt="Marea" class="card-img" />
+          <div class="card-body">
+            <h3>Maremotriz / Mareomotriz</h3>
+            <p class="muted">
+              Genera electricidad aprovechando mareas y corrientes marinas.
+            </p>
+            <details>
+              <summary class="summary">Pros / Contras</summary>
+              <ul>
+                <li>
+                  <strong>Pros:</strong> Predecible (mareas), bajo impacto en
+                  emisiones.
+                </li>
+                <li>
+                  <strong>Contras:</strong> Costes altos, impacto en ecosistemas
+                  marinos y localización limitada.
+                </li>
+              </ul>
+            </details>
+          </div>
+        </article>
+
+        <!-- NO RENOVABLES -->
+        <article class="card nonrenewable">
+          <img
+            src="../../assets/minas.png"
+            alt="Minas de carbón"
+            class="card-img"
+          />
+          <div class="card-body">
+            <h3>Carbón</h3>
+            <p class="muted">
+              Combustible fósil sólido usado históricamente para generar
+              electricidad e industria.
+            </p>
+            <details>
+              <summary class="summary">Pros / Contras</summary>
+              <ul>
+                <li>
+                  <strong>Pros:</strong> Alto contenido energético,
+                  infraestructura existente en muchas regiones.
+                </li>
+                <li>
+                  <strong>Contras:</strong> Muy contaminante (CO₂, partículas),
+                  contribuye al cambio climático y problemas de salud.
+                </li>
+              </ul>
+            </details>
+          </div>
+        </article>
+
+        <article class="card nonrenewable">
+          <img
+            src="../../assets/petroleo.png"
+            alt="Petróleo"
+            class="card-img"
+          />
+          <div class="card-body">
+            <h3>Petróleo</h3>
+            <p class="muted">
+              Líquido fósil clave para transporte, industria química y
+              generación eléctrica en ciertos lugares.
+            </p>
+            <details>
+              <summary class="summary">Pros / Contras</summary>
+              <ul>
+                <li>
+                  <strong>Pros:</strong> Alta densidad energética, fácil
+                  transporte y uso en múltiples sectores.
+                </li>
+                <li>
+                  <strong>Contras:</strong> Emisiones CO₂, derrames, dependencia
+                  geopolítica y agotamiento a largo plazo.
+                </li>
+              </ul>
+            </details>
+          </div>
+        </article>
+
+        <article class="card nonrenewable">
+          <img src="../../assets/gas.png" alt="Gas natural" class="card-img" />
+          <div class="card-body">
+            <h3>Gas Natural</h3>
+            <p class="muted">
+              Combustible fósil gaseoso usado para electricidad, calefacción e
+              industria.
+            </p>
+            <details>
+              <summary class="summary">Pros / Contras</summary>
+              <ul>
+                <li>
+                  <strong>Pros:</strong> Menos CO₂ que carbón y petróleo por
+                  kWh, flexible para plantas de ciclo combinado.
+                </li>
+                <li>
+                  <strong>Contras:</strong> Emisión de metano (potente GEI) por
+                  fugas y sigue siendo fósil.
+                </li>
+              </ul>
+            </details>
+          </div>
+        </article>
+
+        <article class="card nonrenewable">
+          <img
+            src="../../assets/nuclear.png"
+            alt="Planta nuclear"
+            class="card-img"
+          />
+          <div class="card-body">
+            <h3>Nuclear (Uranio)</h3>
+            <p class="muted">
+              Generación por fisión nuclear: alta potencia con bajas emisiones
+              de CO₂ durante operación.
+            </p>
+            <details>
+              <summary class="summary">Pros / Contras</summary>
+              <ul>
+                <li>
+                  <strong>Pros:</strong> Producción constante, muy alta densidad
+                  energética y baja emisión directa de CO₂.
+                </li>
+                <li>
+                  <strong>Contras:</strong> Residuos radioactivos, alta
+                  inversión y riesgos percibidos por seguridad; debates sobre si
+                  es renovable.
+                </li>
+              </ul>
+            </details>
+          </div>
+        </article>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>© 2025 Plataforma Energía — Información educativa.</p>
+    </footer>
+
+    <script>
+      // filtro simple sin librerías
+      const filterBtns = document.querySelectorAll(".filter-btn");
+      const cards = document.querySelectorAll(".card");
+
+      filterBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          filterBtns.forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+          const filter = btn.dataset.filter;
+
+          cards.forEach((card) => {
+            if (filter === "all") {
+              card.style.display = "";
+            } else if (filter === "renewable") {
+              card.style.display = card.classList.contains("renewable")
+                ? ""
+                : "none";
+            } else if (filter === "nonrenewable") {
+              card.style.display = card.classList.contains("nonrenewable")
+                ? ""
+                : "none";
+            }
+          });
+        });
+      });
+
+      // logout (si quieres que limpie sesión)
+      document.getElementById("logoutBtn").addEventListener("click", () => {
+        localStorage.removeItem("usuario");
+        sessionStorage.removeItem("usuario");
+        window.location.href = "../login/login.html";
+      });
+    </script>
+  </body>
+</html>
