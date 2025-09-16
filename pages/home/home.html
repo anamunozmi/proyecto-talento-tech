@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inicio | Plataforma Energía</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- Header unificado -->
+    <header class="topbar">
+      <div class="brand">
+        <a href="../home/home.html" class="logo">⚡ Plataforma Energía</a>
+      </div>
+      <nav class="menu">
+        <a href="../home/home.html" class="active">Inicio</a>
+        <a href="../tipos de energia/tiposDeEnergia.html">Tipos de Energía</a>
+        <a href="../maps/maps.html">Mapas</a>
+        <a href="../login/login.html">Consulta tu Consumo</a>
+        <button id="logoutBtn" class="logout-small">Cerrar sesión</button>
+      </nav>
+    </header>
+
+    <!-- Bienvenida -->
+    <section class="hero">
+      <h1>Bienvenido a la Plataforma de Energía Renovable</h1>
+      <p>
+        Explora cómo las energías limpias están transformando nuestro planeta y
+        descubre información clave sobre consumo energético a nivel global.
+      </p>
+    </section>
+
+    <!-- Explicación general -->
+    <section class="intro">
+      <h2>¿Qué encontrarás aquí?</h2>
+      <p>
+        Esta plataforma ofrece información interactiva sobre los diferentes
+        tipos de energía, el impacto del consumo energético en países, regiones
+        y continentes, además de recursos educativos sobre energías renovables y
+        no renovables.
+      </p>
+    </section>
+
+    <!-- Contenido dinámico con gráficos -->
+    <main class="content">
+      <article class="card">
+        <h3>Costos Energéticos por País</h3>
+        <div class="chart-placeholder">[Gráfico aquí]</div>
+        <p>
+          Observa cómo varía el costo de la energía en distintos países y qué
+          factores influyen en estas diferencias.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>Energías Renovables vs No Renovables</h3>
+        <p>
+          Las energías <strong>renovables</strong> provienen de fuentes
+          inagotables como el sol, el viento o el agua, mientras que las
+          <strong>no renovables</strong> se extraen de recursos limitados como
+          el carbón, el petróleo y el gas natural.
+        </p>
+        <div class="chart-placeholder">[Gráfico aquí]</div>
+      </article>
+
+      <article class="card">
+        <h3>Consumo por Regiones</h3>
+        <div class="chart-placeholder">[Gráfico aquí]</div>
+        <p>
+          Descubre cómo cambia el consumo energético en distintas regiones del
+          mundo y qué papel juegan las políticas locales.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>Resumen Global por Continentes</h3>
+        <p>
+          Un vistazo general a los continentes muestra las diferencias en
+          producción y consumo, así como el avance en la adopción de energías
+          renovables.
+        </p>
+        <div class="chart-placeholder">[Gráfico aquí]</div>
+      </article>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <p>© 2025 Plataforma Energía — Información educativa.</p>
+    </footer>
+
+    <script>
+      document.getElementById("logoutBtn").addEventListener("click", () => {
+        // limpiar sesión
+        localStorage.removeItem("usuario");
+        sessionStorage.removeItem("usuario");
+
+        // Redirigir al login
+        window.location.href = "../login/login.html";
+      });
+    </script>
+  </body>
+</html>

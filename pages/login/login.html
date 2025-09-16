@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Acceso al sistema</title>
+    <link rel="stylesheet" href="login.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="form-section">
+        <!-- LOGIN FORM -->
+        <form id="loginForm" class="form active" >
+          <h2>Iniciar Sesión</h2>
+          <input
+            type="text"
+            id="loginUsername"
+            placeholder="Usuario"
+            required
+          />
+          <input
+            type="password"
+            id="loginPassword"
+            placeholder="Contraseña"
+            required
+          />
+          <button type="submit">Entrar</button>
+          <p class="form-footer">
+            ¿No tienes cuenta?
+            <a href="#" onclick="showForm('registerForm')">Regístrate</a> <br />
+            <a href="#" onclick="showForm('forgotForm')"
+              >¿Olvidaste tu contraseña?</a
+            >
+          </p>
+          <p id="loginError" class="error-message"></p>
+        </form>
+
+        <!-- REGISTER FORM -->
+        <form id="registerForm" class="form">
+          <h2>Registrarse</h2>
+          <input
+            type="text"
+            id="registerUsername"
+            placeholder="Nuevo usuario"
+            required
+          />
+          <input
+            type="email"
+            id="registerEmail"
+            placeholder="Correo electrónico"
+            required
+          />
+          <input
+            type="password"
+            id="registerPassword"
+            placeholder="Contraseña"
+            required
+          />
+          <button type="submit">Crear cuenta</button>
+          <p class="form-footer">
+            ¿Ya tienes cuenta?
+            <a href="#" onclick="showForm('loginForm')">Inicia sesión</a>
+          </p>
+          <p id="registerError" class="error-message"></p>
+        </form>
+
+        <!-- FORGOT PASSWORD FORM -->
+        <form id="forgotForm" class="form">
+          <h2>Recuperar contraseña</h2>
+          <input
+            type="email"
+            id="forgotEmail"
+            placeholder="Tu correo electrónico"
+            required
+          />
+          <button type="submit">Enviar enlace</button>
+          <p class="form-footer">
+            <a href="#" onclick="showForm('loginForm')">Volver al login</a>
+          </p>
+          <p id="forgotError" class="error-message"></p>
+        </form>
+      </div>
+    </div>
+
+    <script src="login.js"></script>
+  </body>
+</html>
