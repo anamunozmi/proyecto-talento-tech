@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Inicio | Plataforma Energía</title>
     <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
   <body>
     <!-- Header unificado -->
@@ -23,10 +24,10 @@
 
     <!-- Bienvenida -->
     <section class="hero">
-      <h1>Bienvenido a la Plataforma de Energía Renovable</h1>
+      <h1>Bienvenido a la Plataforma de Energía</h1>
       <p>
-        Explora cómo las energías limpias están transformando nuestro planeta y
-        descubre información clave sobre consumo energético a nivel global.
+        Explora cómo las energías están transformando nuestro planeta y descubre
+        información clave sobre consumo energético a nivel global.
       </p>
     </section>
 
@@ -44,42 +45,42 @@
     <!-- Contenido dinámico con gráficos -->
     <main class="content">
       <article class="card">
-        <h3>Costos Energéticos por País</h3>
-        <div class="chart-placeholder">[Gráfico aquí]</div>
+        <h3>Países con precios de electricidad más altos (2025)</h3>
+        <canvas id="chartCostos"></canvas>
         <p>
-          Observa cómo varía el costo de la energía en distintos países y qué
-          factores influyen en estas diferencias.
+          Este gráfico muestra los países con los mayores precios residenciales
+          de electricidad, lo que refleja una fuerte dependencia de fuentes no
+          renovables y altos costos de generación.
         </p>
       </article>
 
       <article class="card">
         <h3>Energías Renovables vs No Renovables</h3>
         <p>
-          Las energías <strong>renovables</strong> provienen de fuentes
-          inagotables como el sol, el viento o el agua, mientras que las
-          <strong>no renovables</strong> se extraen de recursos limitados como
-          el carbón, el petróleo y el gas natural.
+          Comparación global de la participación de las energías renovables y no
+          renovables en la matriz energética mundial (2024).
         </p>
-        <div class="chart-placeholder">[Gráfico aquí]</div>
+        <canvas id="chartRenovables"></canvas>
       </article>
 
       <article class="card">
-        <h3>Consumo por Regiones</h3>
-        <div class="chart-placeholder">[Gráfico aquí]</div>
+        <h3>Consumo Energético Total por Regiones (2024)</h3>
+        <canvas id="chartRegiones"></canvas>
         <p>
-          Descubre cómo cambia el consumo energético en distintas regiones del
-          mundo y qué papel juegan las políticas locales.
+          Este gráfico representa el <strong>consumo total</strong> de energía
+          (renovable + no renovable) en las principales regiones del mundo. Asia
+          concentra la mayor demanda energética, seguida por América del Norte y
+          Europa.
         </p>
       </article>
 
       <article class="card">
         <h3>Resumen Global por Continentes</h3>
         <p>
-          Un vistazo general a los continentes muestra las diferencias en
-          producción y consumo, así como el avance en la adopción de energías
-          renovables.
+          Distribución aproximada de la capacidad instalada de energías
+          renovables por continente en 2024.
         </p>
-        <div class="chart-placeholder">[Gráfico aquí]</div>
+        <canvas id="chartContinentes"></canvas>
       </article>
     </main>
 
@@ -89,12 +90,137 @@
     </footer>
 
     <script>
+      // Paleta de colores unificada (con variación extra para África)
+      const colores = [
+        "#36A2EB",
+        "#4CAF50",
+        "#FFCE56",
+        "#FF5733",
+        "#9B59B6",
+        "#E67E22",
+      ];
+
+      // Configuración global de textos en blanco
+      Chart.defaults.color = "#FFFFFF";
+
+      // 1. Países con precios de electricidad más altos
+      const datosCostosAltos = {
+        labels: ["Irlanda", "Dinamarca", "Alemania", "Italia"],
+        datasets: [
+          {
+            label: "Precio electricidad (USD/kWh)",
+            data: [0.53, 0.384, 0.365, 0.45],
+            backgroundColor: colores.slice(0, 4),
+            borderColor: colores.slice(0, 4),
+            borderWidth: 1,
+          },
+        ],
+      };
+
+      new Chart(document.getElementById("chartCostos"), {
+        type: "bar",
+        data: datosCostosAltos,
+        options: {
+          responsive: true,
+          plugins: { legend: { labels: { color: "#FFF" } } },
+          scales: {
+            x: { ticks: { color: "#FFF" } },
+            y: { ticks: { color: "#FFF" }, beginAtZero: true },
+          },
+        },
+      });
+
+      // 2. Renovables vs no renovables
+      const datosRenovables = {
+        labels: ["Renovables", "No Renovables"],
+        datasets: [
+          {
+            data: [30, 70],
+            backgroundColor: [colores[1], colores[3]],
+          },
+        ],
+      };
+
+      new Chart(document.getElementById("chartRenovables"), {
+        type: "doughnut",
+        data: datosRenovables,
+        options: {
+          responsive: true,
+          plugins: { legend: { labels: { color: "#FFF" } } },
+        },
+      });
+
+      // 3. Consumo por regiones (total, no solo renovable)
+      const datosRegiones = {
+        labels: [
+          "Asia",
+          "América del Norte",
+          "Europa",
+          "América Latina",
+          "África",
+        ],
+        datasets: [
+          {
+            label: "Consumo energético total (%)",
+            data: [43, 20, 17, 10, 10],
+            backgroundColor: [
+              colores[0],
+              colores[1],
+              colores[2],
+              colores[3],
+              colores[4],
+            ],
+          },
+        ],
+      };
+
+      new Chart(document.getElementById("chartRegiones"), {
+        type: "pie",
+        data: datosRegiones,
+        options: {
+          responsive: true,
+          plugins: { legend: { labels: { color: "#FFF" } } },
+        },
+      });
+
+      // 4. Renovables por continente
+      const datosContinentes = {
+        labels: [
+          "Asia",
+          "Europa",
+          "Norteamérica",
+          "Latinoamérica",
+          "África",
+          "Oceanía",
+        ],
+        datasets: [
+          {
+            label: "Capacidad renovable (GW)",
+            data: [1300, 600, 400, 250, 150, 50],
+            backgroundColor: colores,
+            borderColor: colores,
+            borderWidth: 1,
+          },
+        ],
+      };
+
+      new Chart(document.getElementById("chartContinentes"), {
+        type: "bar",
+        data: datosContinentes,
+        options: {
+          responsive: true,
+          plugins: { legend: { labels: { color: "#FFF" } } },
+          scales: {
+            x: { ticks: { color: "#FFF" } },
+            y: { ticks: { color: "#FFF" }, beginAtZero: true },
+          },
+        },
+      });
+
+      // Logout
       document.getElementById("logoutBtn").addEventListener("click", () => {
-        // limpiar sesión
         localStorage.removeItem("usuario");
         sessionStorage.removeItem("usuario");
-
-        // Redirigir al login
         window.location.href = "../login/login.html";
       });
     </script>
