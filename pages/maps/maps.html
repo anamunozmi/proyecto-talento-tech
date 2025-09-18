@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Mapa</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- Header unificado -->
+    <header class="topbar">
+      <div class="brand">
+        <a href="../home/home.html" class="logo">⚡ Plataforma Energía</a>
+      </div>
+      <nav class="menu">
+        <a href="../home/home.html">Inicio</a>
+        <a href="../tipos de energia/tiposDeEnergia.html">Tipos de Energía</a>
+        <a href="../maps/maps.html" class="active">Mapas</a>
+        <a href="../tuConsumo/tuConsumo.html">Consulta tu Consumo</a>
+        <button id="logoutBtn" class="logout-small">Cerrar sesión</button>
+      </nav>
+    </header>
+
+    <!-- Título -->
+    <section class="intro">
+      <h2>Mapa Satelital - Consumo de Energía Renovable por País</h2>
+      <p>
+        Explora el consumo de energías renovables en diferentes países y
+        descubre cómo se distribuyen estas fuentes limpias a nivel mundial.
+      </p>
+    </section>
+
+    <!-- Contenedor del mapa -->
+    <main class="content">
+      <div class="card" style="grid-column: 1 / -1">
+        <div id="map"></div>
+      </div>
+    </main>
+
+    <!-- Leaflet -->
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+    <!-- Script del mapa -->
+    <script>
+      const renewableData = {
+        Norway: 72.09,
+        Sweden: 53.89,
+        Brazil: 50.33,
+        Denmark: 42.73,
+        "New Zealand": 42.27,
+        Austria: 40.08,
+        Switzerland: 38.33,
+        Portugal: 36.04,
+        Finland: 35.94,
+        Latvia: 31.92,
+        Croatia: 31.57,
+        Chile: 30.53,
+        Canada: 29.26,
+        Colombia: 28.92,
+        Ecuador: 28.98,
+      };
+
+      const countryDescriptions = {
+        Norway:
+          "Noruega lidera gracias a su extensa red de energía hidroeléctrica, que cubre más del 90% de su electricidad.",
+        Sweden:
+          "Suecia combina energía hidroeléctrica, eólica y biomasa para mantener una matriz energética limpia.",
+        Brazil:
+          "Brasil aprovecha su vasta capacidad hidroeléctrica y el uso de biocombustibles como el etanol.",
+        Denmark:
+          "Dinamarca es pionera en energía eólica, con parques tanto en tierra como en el mar.",
+        "New Zealand":
+          "Nueva Zelanda depende principalmente de energía geotérmica e hidroeléctrica.",
+        Austria:
+          "Austria utiliza principalmente energía hidroeléctrica, especialmente en los Alpes.",
+        Switzerland:
+          "Suiza genera la mayoría de su electricidad a través de represas hidroeléctricas.",
+        Portugal:
+          "Portugal ha invertido fuertemente en energía solar, eólica e hidráulica.",
+        Finland:
+          "Finlandia ha diversificado su matriz renovable con biomasa, eólica e hidráulica.",
+        Chile:
+          "Chile es líder en Sudamérica en energía solar, especialmente en el desierto de Atacama.",
+      };
+
+      let topCountry = null;
+      let topValue = 0;
+      for (const [country, value] of Object.entries(renewableData)) {
+        if (value > topValue) {
+          topValue = value;
+          topCountry = country;
+        }
+      }
+
+      const map = L.map("map").setView([20, 0], 2);
+
+      // Capa base satelital (Esri)
+      const esriSat = L.tileLayer(
+        "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+        {
+          attribution: "© Esri, Maxar, Earthstar Geographics",
+          maxZoom: 18,
+        }
+      ).addTo(map);
+
+      function getColor(d) {
+        return d > 60
+          ? "#006837"
+          : d > 50
+          ? "#31a354"
+          : d > 40
+          ? "#78c679"
+          : d > 30
+          ? "#c2e699"
+          : d > 20
+          ? "#ffffcc"
+          : d > 10
+          ? "#ffeda0"
+          : "#f7f7f7";
+      }
+
+      function style(feature) {
+        const name = feature.properties.name;
+        const val = renewableData[name];
+        return {
+          fillColor: val !== undefined ? getColor(val) : "#ccc",
+          weight: 1,
+          opacity: 1,
+          color: "white",
+          fillOpacity: 0.7,
+        };
+      }
+
+      let renewableLayer;
+
+      function onEachFeature(feature, layer) {
+        const name = feature.properties.name;
+        const val = renewableData[name];
+        const description = countryDescriptions[name];
+
+        if (name === topCountry) {
+          setTimeout(() => {
+            const popupText =
+              "<strong>" +
+              name +
+              "</strong><br>" +
+              "Consumo de energía renovable: " +
+              val +
+              "%<br>" +
+              (description ? description : "");
+            layer.bindPopup(popupText).openPopup();
+          }, 1000);
+        }
+
+        layer.on({
+          mouseover: function (e) {
+            const layer = e.target;
+            layer.setStyle({
+              weight: 2,
+              color: "#666",
+              fillOpacity: 0.9,
+            });
+            layer.bringToFront();
+          },
+          mouseout: function (e) {
+            renewableLayer.resetStyle(e.target);
+          },
+          click: function (e) {
+            const popupContent =
+              "<strong>" +
+              name +
+              "</strong><br/>" +
+              (val !== undefined
+                ? "Renovable: " + val.toFixed(2) + "%<br>"
+                : "") +
+              (description ? description : "No hay descripción disponible.");
+            layer.bindPopup(popupContent).openPopup();
+          },
+        });
+      }
+
+      // Cargar GeoJSON con nombres de países
+      fetch(
+        "https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json"
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          renewableLayer = L.geoJson(data, {
+            style: style,
+            onEachFeature: onEachFeature,
+            filter: (feature) =>
+              renewableData[feature.properties.name] !== undefined,
+          }).addTo(map);
+
+          // Control de capas
+          const baseMaps = { "Satélite (Esri)": esriSat };
+          const overlayMaps = { "Consumo Energía Renovable": renewableLayer };
+          L.control
+            .layers(baseMaps, overlayMaps, { collapsed: false })
+            .addTo(map);
+        });
+
+      const legend = L.control({ position: "bottomright" });
+
+      legend.onAdd = function (map) {
+        const div = L.DomUtil.create("div", "legend");
+        const grades = [0, 10, 20, 30, 40, 50, 60];
+        const labels = [];
+
+        for (let i = 0; i < grades.length; i++) {
+          const from = grades[i];
+          const to = grades[i + 1];
+          labels.push(
+            '<i style="background:' +
+              getColor(from + 1) +
+              '"></i> ' +
+              from +
+              (to ? "&ndash;" + to + "%" : "+%")
+          );
+        }
+
+        div.innerHTML =
+          "<strong>% Renovables</strong><br>" + labels.join("<br>");
+        return div;
+      };
+
+      legend.addTo(map);
+
+      // botón cerrar sesión
+      document.getElementById("logoutBtn").addEventListener("click", () => {
+        localStorage.removeItem("usuario");
+        sessionStorage.removeItem("usuario");
+        window.location.href = "../login/login.html";
+      });
+    </script>
+
+    <h2>
+      Comparativa de Consumo de Energía Renovable por Continente, País y Región
+    </h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Continente</th>
+          <th>País</th>
+          <th>Región</th>
+          <th>% Consumo Energía Renovable</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- África -->
+        <tr class="continente">
+          <td rowspan="3">África</td>
+          <td>Sudáfrica</td>
+          <td>SUR</td>
+          <td>6.7%</td>
+        </tr>
+        <tr>
+          <td>Egipto</td>
+          <td>NORTE</td>
+          <td>~3%</td>
+        </tr>
+        <tr>
+          <td>Kenia</td>
+          <td>África Oriental</td>
+          <td>~10%</td>
+        </tr>
+
+        <!-- América del Sur -->
+        <tr class="continente">
+          <td rowspan="3">América del Sur</td>
+          <td>Brasil</td>
+          <td>América del Sur</td>
+          <td>~50%</td>
+        </tr>
+        <tr>
+          <td>Chile</td>
+          <td>América del Sur</td>
+          <td>~27%</td>
+        </tr>
+        <tr>
+          <td>Colombia</td>
+          <td>América del Sur</td>
+          <td>~29%</td>
+        </tr>
+
+        <!-- América del Norte -->
+        <tr class="continente">
+          <td>América del Norte</td>
+          <td>Canadá</td>
+          <td>América del Norte</td>
+          <td>~24%</td>
+        </tr>
+
+        <!-- Asia -->
+        <tr class="continente">
+          <td rowspan="3">Asia</td>
+          <td>China</td>
+          <td>Asia Oriental</td>
+          <td>~30%</td>
+        </tr>
+        <tr>
+          <td>India</td>
+          <td>Asia Meridional</td>
+          <td>~15%</td>
+        </tr>
+        <tr>
+          <td>Japón</td>
+          <td>Asia Oriental</td>
+          <td>~8%</td>
+        </tr>
+
+        <!-- Europa -->
+        <tr class="continente">
+          <td rowspan="5">Europa</td>
+          <td>Noruega</td>
+          <td>Europa del Norte</td>
+          <td>~60%</td>
+        </tr>
+        <tr>
+          <td>Suecia</td>
+          <td>Europa del Norte</td>
+          <td>~54%</td>
+        </tr>
+        <tr>
+          <td>Alemania</td>
+          <td>Europa Occidental</td>
+          <td>~18%</td>
+        </tr>
+        <tr>
+          <td>España</td>
+          <td>Europa Occidental</td>
+          <td>~19%</td>
+        </tr>
+        <tr>
+          <td>Finlandia</td>
+          <td>Europa del Norte</td>
+          <td>~36%</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Análisis comparativo</h3>
+    <p>
+      - Los países en Europa del Norte como Noruega y Suecia tienen porcentajes
+      muy elevados de consumo renovable, usualmente por su alto uso de
+      hidroeléctrica, energía eólica y fuentes limpias. <br />
+      - En América del Sur, Brasil destaca con un porcentaje alto (~50%),
+      mientras que otros países están en rangos medios (~25‑30%). <br />
+      - Asia tiene una gran variabilidad: China tiene avances moderados (~30%),
+      pero otros países como Japón tienen porcentajes bajos en relación con su
+      consumo total. <br />
+      - En África los porcentajes son generalmente bajos, lo que refleja retos
+      de infraestructura, acceso a tecnologías limpias y financiamiento. <br />
+      - América del Norte (ej. Canadá) tiene un consumo renovable decente, pero
+      suele estar detrás de los líderes europeos en proporción.
+    </p>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <p>© 2025 Plataforma Energía — Información educativa.</p>
+    </footer>
+  </body>
+</html>

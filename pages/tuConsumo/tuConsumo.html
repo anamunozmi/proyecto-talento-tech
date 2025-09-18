@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inicio | Plataforma Energía</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- Header unificado -->
+    <header class="topbar">
+      <div class="brand">
+        <a href="../home/home.html" class="logo">⚡ Plataforma Energía</a>
+      </div>
+      <nav class="menu">
+        <a href="../home/home.html" class="active">Inicio</a>
+        <a href="../tipos de energia/tiposDeEnergia.html">Tipos de Energía</a>
+        <a href="../maps/maps.html">Mapas</a>
+        <a href="../tuConsumo/tuConsumo.html">Consulta tu Consumo</a>
+        <button id="logoutBtn" class="logout-small">Cerrar sesión</button>
+      </nav>
+    </header>
+
+    <!-- Introducción al cuestionario -->
+    <section class="intro">
+      <h1>💡 Calcula tu Consumo Energético</h1>
+      <p>
+        Con este formulario podrás conocer tus hábitos de consumo y descubrir si
+        predomina en tu vida la energía renovable o no renovable. Nuestro
+        objetivo es ayudarte a reflexionar sobre el uso responsable de los
+        recursos y ofrecerte recomendaciones para un consumo más sostenible.
+      </p>
+    </section>
+
+    <!-- Formulario -->
+    <section class="form-section">
+      <h2>Responde el cuestionario</h2>
+      <p>
+        A continuación encontrarás un formulario con preguntas clave sobre tu
+        uso diario de energía.
+      </p>
+
+      <form id="consumoForm" class="form-grid">
+        <!-- Cada pregunta en su propia card -->
+        <div class="form-card">
+          <label for="personas">1. ¿Cuántas personas viven en tu hogar?</label>
+          <input type="number" id="personas" min="1" value="1" required />
+        </div>
+
+        <div class="form-card">
+          <label for="iluminacion"
+            >2. ¿Qué tipo de iluminación usas principalmente?</label
+          >
+          <select id="iluminacion" required>
+            <option value="led">LED (bajo consumo)</option>
+            <option value="fluorescente">Fluorescente</option>
+            <option value="incandescente">Incandescente (alto consumo)</option>
+          </select>
+        </div>
+
+        <div class="form-card">
+          <label for="electro"
+            >3. ¿Cuánto tiempo al día usas electrodomésticos grandes?</label
+          >
+          <select id="electro" required>
+            <option value="poco">Menos de 3 horas</option>
+            <option value="medio">3 a 6 horas</option>
+            <option value="alto">Más de 6 horas</option>
+          </select>
+        </div>
+
+        <div class="form-card">
+          <label for="renovable"
+            >4. ¿Tienes algún sistema de energía renovable en casa?</label
+          >
+          <select id="renovable" required>
+            <option value="ninguna">Ninguna</option>
+            <option value="solar">Energía Solar</option>
+            <option value="eolica">Energía Eólica</option>
+            <option value="hidraulica">Energía Hidráulica</option>
+            <option value="biomasa">Biomasa</option>
+            <option value="geotermica">Geotérmica</option>
+          </select>
+        </div>
+
+        <div class="form-card">
+          <label for="transporte"
+            >5. ¿Qué medio de transporte usas más seguido?</label
+          >
+          <select id="transporte" required>
+            <option value="publico">Transporte público</option>
+            <option value="bicicleta">Bicicleta / caminar</option>
+            <option value="electrico">Vehículo eléctrico</option>
+            <option value="gasolina">Carro / moto a gasolina</option>
+          </select>
+        </div>
+
+        <div class="form-card">
+          <label for="aire">6. ¿Usas aire acondicionado o calefacción?</label>
+          <select id="aire" required>
+            <option value="nunca">Nunca</option>
+            <option value="poco">Solo en épocas puntuales</option>
+            <option value="mucho">Con frecuencia</option>
+          </select>
+        </div>
+
+        <div class="form-card">
+          <label for="agua">7. ¿Cuánto tiempo promedio duran tus duchas?</label>
+          <select id="agua" required>
+            <option value="corto">Menos de 5 minutos</option>
+            <option value="medio">5 a 10 minutos</option>
+            <option value="largo">Más de 10 minutos</option>
+          </select>
+        </div>
+
+        <div class="form-card">
+          <label for="reciclaje">8. ¿Reciclas en tu hogar?</label>
+          <select id="reciclaje" required>
+            <option value="siempre">Sí, siempre</option>
+            <option value="a_veces">A veces</option>
+            <option value="nunca">Nunca</option>
+          </select>
+        </div>
+
+        <!-- NUEVAS PREGUNTAS -->
+        <div class="form-card">
+          <label for="bombillos">9. ¿Cuántos bombillos tienes en casa?</label>
+          <input type="number" id="bombillos" min="1" value="5" required />
+        </div>
+
+        <div class="form-card">
+          <label for="tv">10. ¿Cuántas horas al día ves televisión?</label>
+          <select id="tv" required>
+            <option value="0">0 horas</option>
+            <option value="1-2">1 a 2 horas</option>
+            <option value="3-5">3 a 5 horas</option>
+            <option value="6+">Más de 6 horas</option>
+          </select>
+        </div>
+
+        <div class="form-card">
+          <label for="pc"
+            >11. ¿Cuántas horas al día usas computador/laptop?</label
+          >
+          <select id="pc" required>
+            <option value="0-2">0 a 2 horas</option>
+            <option value="3-5">3 a 5 horas</option>
+            <option value="6-8">6 a 8 horas</option>
+            <option value="9+">Más de 9 horas</option>
+          </select>
+        </div>
+
+        <div class="form-card">
+          <label for="standby"
+            >12. ¿Dejas electrodomésticos en “stand by”?</label
+          >
+          <select id="standby" required>
+            <option value="nunca">Nunca</option>
+            <option value="a_veces">A veces</option>
+            <option value="siempre">Siempre</option>
+          </select>
+        </div>
+
+        <button type="button" class="calc-btn" onclick="calcularConsumo()">
+          Calcular
+        </button>
+      </form>
+
+      <div id="resultado" class="resultado"></div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+      <p>© 2025 Plataforma Energía — Información educativa.</p>
+    </footer>
+
+    <script>
+      document.getElementById("logoutBtn").addEventListener("click", () => {
+        localStorage.removeItem("usuario");
+        sessionStorage.removeItem("usuario");
+        window.location.href = "../login/login.html";
+      });
+
+      function calcularConsumo() {
+        let puntaje = 0;
+
+        const iluminacion = document.getElementById("iluminacion").value;
+        const electro = document.getElementById("electro").value;
+        const renovable = document.getElementById("renovable").value;
+        const transporte = document.getElementById("transporte").value;
+        const aire = document.getElementById("aire").value;
+        const agua = document.getElementById("agua").value;
+        const reciclaje = document.getElementById("reciclaje").value;
+        const tv = document.getElementById("tv").value;
+        const pc = document.getElementById("pc").value;
+        const standby = document.getElementById("standby").value;
+
+        // Evaluación simple
+        if (iluminacion === "led") puntaje += 2;
+        else if (iluminacion === "fluorescente") puntaje += 1;
+
+        if (electro === "poco") puntaje += 2;
+        else if (electro === "medio") puntaje += 1;
+
+        if (renovable !== "ninguna") puntaje += 3;
+
+        if (transporte === "bicicleta" || transporte === "electrico")
+          puntaje += 2;
+        else if (transporte === "publico") puntaje += 1;
+
+        if (aire === "nunca") puntaje += 2;
+        else if (aire === "poco") puntaje += 1;
+
+        if (agua === "corto") puntaje += 2;
+        else if (agua === "medio") puntaje += 1;
+
+        if (reciclaje === "siempre") puntaje += 2;
+        else if (reciclaje === "a_veces") puntaje += 1;
+
+        if (tv === "0") puntaje += 2;
+        else if (tv === "1-2") puntaje += 1;
+
+        if (pc === "0-2") puntaje += 2;
+        else if (pc === "3-5") puntaje += 1;
+
+        if (standby === "nunca") puntaje += 2;
+        else if (standby === "a_veces") puntaje += 1;
+
+        let mensaje = "";
+        if (puntaje >= 18) {
+          mensaje =
+            "🌱 ¡Excelente! Tu consumo energético es eficiente y priorizas el uso de energías renovables.";
+        } else if (puntaje >= 10) {
+          mensaje =
+            "⚡ Tienes un consumo moderado. Podrías mejorar con pequeños cambios como apagar luces siempre, reducir el uso de dispositivos y optar por transporte más limpio.";
+        } else {
+          mensaje =
+            "🔥 Tu consumo energético es alto y dependes de energías no renovables. Te recomendamos reducir el uso de electrodomésticos, cambiar la iluminación y mejorar tus hábitos diarios.";
+        }
+
+        const resultadoDiv = document.getElementById("resultado");
+        resultadoDiv.style.display = "block";
+        resultadoDiv.innerHTML = `<h3>Resultado</h3><p>${mensaje}</p>`;
+      }
+
+      window.addEventListener("DOMContentLoaded", () => {
+        const form = document.getElementById("consumoForm");
+        form.reset();
+
+        // fuerza a limpiar campos de texto y números
+        form
+          .querySelectorAll("input[type='text'], input[type='number']")
+          .forEach((el) => {
+            el.value = "";
+          });
+
+        // si quieres que los select no tengan nada seleccionado al inicio
+        form.querySelectorAll("select").forEach((el) => {
+          el.selectedIndex = -1; // ningún valor seleccionado
+        });
+      });
+    </script>
+  </body>
+</html>
