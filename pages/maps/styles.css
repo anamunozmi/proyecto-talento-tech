@@ -1,0 +1,181 @@
+/* ---------------- VARIABLES DE COLOR ---------------- */
+:root {
+  --bg1: #70cdf2; /* azul cielo */
+  --bg2: #1e3c72; /* azul profundo */
+  --text: #ffffff; /* texto principal */
+  --accent: #90ee90; /* verde claro (hover/activo) */
+  --danger: #ff6b6b; /* botón salir */
+  --danger-hover: #ff3b3b; /* hover salir */
+  --glass: rgba(0, 0, 0, 0.25); /* fondo semitransparente */
+}
+
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background: linear-gradient(to bottom, var(--bg1), var(--bg2));
+  color: var(--text);
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---------------- HEADER ---------------- */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 24px;
+  background: var(--glass);
+  backdrop-filter: blur(6px);
+  position: sticky;
+  top: 0;
+  z-index: 999;
+}
+
+.topbar .brand .logo {
+  text-decoration: none;
+  color: var(--text);
+  font-weight: 800;
+  font-size: 1.1rem;
+}
+
+.topbar .menu {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.topbar .menu a {
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 500;
+  padding: 8px 10px;
+  border-radius: 8px;
+  transition: background 0.25s, color 0.25s;
+}
+
+.topbar .menu a.active,
+.topbar .menu a:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--accent);
+}
+
+/* Botón cerrar sesión */
+.logout-small {
+  margin-left: 12px;
+  background: var(--danger);
+  border: none;
+  color: var(--text);
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.25s;
+  font-size: 0.9rem;
+}
+.logout-small:hover {
+  background: var(--danger-hover);
+}
+
+/* ---------------- SECCIONES ---------------- */
+.intro {
+  padding: 30px 20px;
+  text-align: center;
+}
+
+.intro h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.intro p {
+  max-width: 700px;
+  margin: 0 auto;
+  font-size: 1.1rem;
+}
+
+/* Contenido en tarjetas */
+.content {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Mapa */
+#map {
+  width: 100%;
+  height: 500px;
+  border-radius: 12px;
+}
+
+/* Leyenda del mapa */
+.legend {
+  line-height: 18px;
+  color: #333;
+  background: #fff;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+}
+
+.legend i {
+  width: 18px;
+  height: 18px;
+  float: left;
+  margin-right: 8px;
+  opacity: 0.8;
+}
+
+h2 {
+  text-align: center;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 30px;
+}
+
+th,
+td {
+  border: 1px solid #cccccc;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #4cc7f0;
+}
+
+.continente {
+  background-color: #4387ec;
+}
+
+.resaltar {
+  font-weight: bold;
+  background-color: #d9edf7;
+}
+
+/* ---------------- FOOTER ---------------- */
+.site-footer {
+  text-align: center;
+  padding: 12px;
+  background: rgba(0, 0, 0, 0.3);
+  font-size: 0.9rem;
+  margin-top: 30px;
+}
